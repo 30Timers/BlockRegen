@@ -27,6 +27,7 @@ import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -367,6 +368,22 @@ public class RegenerationEventHandlerImpl implements RegenerationEventHandler {
         BlockState state = block.getState();
 
         List<ItemStack> vanillaDrops = new ArrayList<>(block.getDrops(plugin.getVersionManager().getMethods().getItemInMainHand(player)));
+        List<Item> drops = vanillaDrops.stream().map(itemStack -> {
+            Item item = player.getWorld().spawn(new Location(player.getWorld(), 0, 0, 0), Item.class);
+            item.setItemStack(itemStack);
+            item.setPickupDelay(100);
+            return item;
+        }).toList();
+        
+        BlockDropItemEvent blockDropItemEvent = new BlockDropItemEvent(block, block.getState(), player, drops);
+        Bukkit.getPluginManager().callEvent(blockDropItemEvent);
+        if (blockDropItemEvent.isCancelled()) {
+            blockDropItemEvent.getItems().clear();
+        }
+        vanillaDrops = blockDropItemEvent.getItems().stream().map(item -> {
+            item.remove();
+            return item.getItemStack();
+        }).toList();
 
         // Cancels item drops below 1.8.
         if (BukkitVersions.isCurrentBelow("1.8", true)) {

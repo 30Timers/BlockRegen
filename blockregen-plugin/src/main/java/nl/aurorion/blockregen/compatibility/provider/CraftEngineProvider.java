@@ -8,7 +8,6 @@ import nl.aurorion.blockregen.BlockRegenPlugin;
 import nl.aurorion.blockregen.ParseException;
 import nl.aurorion.blockregen.compatibility.CompatibilityProvider;
 import nl.aurorion.blockregen.compatibility.material.CraftEngineMaterial;
-import nl.aurorion.blockregen.compatibility.material.OraxenMaterial;
 import nl.aurorion.blockregen.conditional.Condition;
 import nl.aurorion.blockregen.drop.ItemProvider;
 import nl.aurorion.blockregen.material.BlockRegenMaterial;
@@ -57,7 +56,7 @@ public class CraftEngineProvider extends CompatibilityProvider implements ItemPr
         if (CraftEngineBlocks.byId(Key.from(input)) == null) {
             throw new ParseException(String.format("'%s' is not a CraftEngine block.", input));
         }
-        return new OraxenMaterial(input);
+        return new CraftEngineMaterial(input);
     }
 
     @Override
@@ -71,7 +70,7 @@ public class CraftEngineProvider extends CompatibilityProvider implements ItemPr
 
     @Override
     public @NonNull Class<?> getClazz() {
-        return OraxenMaterial.class;
+        return CraftEngineMaterial.class;
     }
 
     @Override
@@ -93,6 +92,6 @@ public class CraftEngineProvider extends CompatibilityProvider implements ItemPr
 
     @Override
     public BlockRegenMaterial createInstance(Type type) {
-        return new OraxenMaterial(null);
+        return new CraftEngineMaterial(null);
     }
 }
