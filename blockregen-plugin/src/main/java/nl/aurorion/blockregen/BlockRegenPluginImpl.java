@@ -27,6 +27,8 @@ import nl.aurorion.blockregen.regeneration.RegenerationEventHandlerImpl;
 import nl.aurorion.blockregen.regeneration.RegenerationManager;
 import nl.aurorion.blockregen.region.RegionManager;
 import nl.aurorion.blockregen.util.BukkitVersions;
+import nl.aurorion.blockregen.util.GsonHelper;
+import nl.aurorion.blockregen.util.SubclassAdapter;
 import nl.aurorion.blockregen.version.NodeDataInstanceCreator;
 import nl.aurorion.blockregen.version.VersionManager;
 import nl.aurorion.blockregen.version.VersionManagerImpl;
@@ -174,7 +176,7 @@ public class BlockRegenPluginImpl extends JavaPlugin implements Listener, BlockR
 
         gsonHelper = new GsonHelper(gsonBuilder);
 
-        presetManager.load();
+        presetManager.initialLoad();
         regionManager.load();
         regenerationManager.load();
 
@@ -244,7 +246,7 @@ public class BlockRegenPluginImpl extends JavaPlugin implements Listener, BlockR
         Message.load();
 
         files.getBlockList().load();
-        presetManager.load();
+        presetManager.initialLoad();
 
         physicsListener.load();
 
