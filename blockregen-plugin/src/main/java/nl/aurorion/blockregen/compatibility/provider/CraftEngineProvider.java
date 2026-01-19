@@ -94,4 +94,9 @@ public class CraftEngineProvider extends CompatibilityProvider implements ItemPr
     public BlockRegenMaterial createInstance(Type type) {
         return new CraftEngineMaterial(null);
     }
+
+    @Override
+    public boolean containsColon() {
+        return true;
+    }
 }
