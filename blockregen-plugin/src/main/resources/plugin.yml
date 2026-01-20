@@ -3,7 +3,8 @@ main: nl.aurorion.blockregen.BlockRegenPluginImpl
 version: ${project.version}
 authors: [ Aurorion, Wertik1206 ]
 softdepend:
-  - Mutliverse-Core
+  - Multiverse-Core
+  - CraftEngine
   - Residence
   - Vault
   - WorldEdit
